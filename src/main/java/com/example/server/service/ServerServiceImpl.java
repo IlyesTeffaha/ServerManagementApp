@@ -8,8 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Collection;
+
+import static com.example.server.enumeration.Status.*;
 
 
 @RequiredArgsConstructor
@@ -30,14 +34,17 @@ private final ServerRepo serverRepo;
     }
 
     @Override
-    public Server ping(String ipAddress) {
+    public Server ping(String ipAddress) throws IOException {
         log.info("pinging server IP:{}",ipAddress);
         Server server=serverRepo.findByIpAddress(ipAddress);
+       /* What is the use of INET address?
+                InetAddress class provides methods to get the IP address of any hostname.*/
         InetAddress address=InetAddress.getByName(ipAddress);
+       server.setStatus(address.isReachable(10000) ? SERVER_UP : SERVER_DOWN);
 
-
-        return null;
-    }
+serverRepo.save(server);
+        return server;
+     }
 
     @Override
     public Collection<Server> list(int limit) {
