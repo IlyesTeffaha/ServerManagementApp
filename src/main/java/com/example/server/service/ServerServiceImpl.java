@@ -55,17 +55,22 @@ serverRepo.save(server);
 
     @Override
     public Server get(Long id) {
-        return null;
+        log.info("Getting server by id:{}",id);
+        return serverRepo.findById(id).get();
+
     }
 
     @Override
     public Server update(Server server) {
-        return null;
+        log.info("updating  server:{}",server.getName());
+        return serverRepo.save(server);
     }
 
     @Override
     public Boolean delete(Long id) {
-        return null;
+        log.info("deleting  server:{}",id);
+serverRepo.deleteById(id);
+        return Boolean.TRUE;
     }
 
 
