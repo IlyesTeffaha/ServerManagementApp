@@ -7,12 +7,14 @@ import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Collection;
+import java.util.Random;
 
 import static com.example.server.enumeration.Status.*;
 
@@ -75,6 +77,8 @@ serverRepo.deleteById(id);
 
 
     private String setServerImageUrl(){
-        return  null;
+        String[] imagenames={"server1.png","server2.png","server3.png","server4.png"};
+
+        return ServletUriComponentsBuilder.fromCurrentContextPath().path(("/server/image/"+ imagenames[new Random().nextInt( 4)])).toUriString();
     }
 }
