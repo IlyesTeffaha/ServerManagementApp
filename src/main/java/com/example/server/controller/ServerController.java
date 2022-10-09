@@ -27,7 +27,9 @@ public class ServerController {
     private final ServerServiceImpl serverService;
 @GetMapping("/list")
 public ResponseEntity<Response> getServers() throws InterruptedException {
+
     TimeUnit.SECONDS.sleep(3);
+
     return  ResponseEntity.ok(
             Response.builder()
                     .timestamp(LocalDateTime.now())
