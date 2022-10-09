@@ -30,7 +30,7 @@ public ResponseEntity<Response> getServers(){
             Response.builder()
                     .timestamp(LocalDateTime.now())
                     .data(Map.of("servers",serverService.list(30)))
-                    .message("Server retrieved")
+                    .message("Servers retrieved")
                     .status(HttpStatus.OK)
                     .statusCode(HttpStatus.OK.value())
                     .build()
@@ -119,7 +119,7 @@ public ResponseEntity<Response> getServers(){
 
     @GetMapping(path = "/image/{filename}",produces = IMAGE_PNG_VALUE)
     public byte[] getServerImage(@PathVariable("filename") String filename) throws IOException {
-        return Files.readAllBytes(Paths.get(System.getProperty("Users.Elyes")+"Desktop/"+filename));
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Desktop/"+filename));
 
 
     }
